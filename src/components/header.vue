@@ -4,8 +4,12 @@
   >
     Emploi du temps {{ calendarStore.group.name }}
   </h3>
+  <div class="mt-8 ml-6">
+    <SelectGroup />
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { calendarStore } from "~/src/store/calendarStore";
+import SelectGroup from "~/src/components/selectGroup.vue";
 </script>

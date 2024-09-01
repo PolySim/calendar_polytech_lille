@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-screen w-screen">
     <Header />
-    <Calendar class="mt-12" />
+    <Calendar class="my-12" />
   </div>
 </template>
 
