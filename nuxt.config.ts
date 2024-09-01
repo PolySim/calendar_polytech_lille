@@ -9,4 +9,9 @@ export default defineNuxtConfig({
       BASE_URL: process.env.BASE_URL,
     },
   },
+  eslint: {
+    config: {
+      stylistic: true,
+    },
+  },
 });

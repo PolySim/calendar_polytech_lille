@@ -7,16 +7,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { GroupType } from "~/src/types/group.type";
 import SelectLink from "~/src/components/ui/selectLink.vue";
 import { computed } from "vue";
+import { getGroups } from "~/src/utils/groups";
 
-const { data } = useFetch(
-  `${useRuntimeConfig().public.BASE_URL}/data/groups.json`,
-  {
-    lazy: true,
-  },
-) as { data: Ref<GroupType[]> };
+const { data } = await getGroups();
 
 const options: { label: string; to: string }[] = computed(() =>
   (data.value || []).map((g) => ({ label: g.name, to: `/${g.name}` })),

@@ -1,16 +1,11 @@
 <template>
-  <div>{{ group }}</div>
-  <div>{{ data }} {{ route.params }}</div>
+  <h3
+    class="font-bebas -tracking-tighter text-center text-3xl md:text-5xl mt-12"
+  >
+    Emploi du temps {{ calendarStore.group.name }}
+  </h3>
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import type { GroupType } from "~/src/types/group.type.js";
-
-const route = useRoute();
-const id = computed(() => route.params.id);
-const { data } = useFetch("/data/groups.json", {
-  lazy: true,
-}) as { data: Ref<GroupType[]> };
-const group = computed(() => data.value?.find((g) => g.name === id.value));
+import { calendarStore } from "~/src/store/calendarStore";
 </script>
