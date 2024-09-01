@@ -1,6 +1,8 @@
 <template>
-  <Header />
-  <Calendar />
+  <div class="flex flex-col h-screen w-screen">
+    <Header />
+    <Calendar class="mt-12" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -18,21 +20,25 @@ const { data } = await getGroups();
 const group = computed(() => data.value?.find((g) => g.name === id.value));
 const schedules = ref([]);
 
-watchEffect(() => {
-  const temp = async (key: string) => {
-    const { data: s, error } = await getSchedules(key);
+watch(group.value, () => {
+  const getData = async (key: string) => {
+    const { data: s } = await getSchedules(key);
     schedules.value = JSON.parse(s.value) || [];
   };
-  if (group.value) temp(group.value.key);
+  if (group.value) getData(group.value.key);
 });
 
-watchEffect(() => {
-  if (group.value) {
-    calendarStore.group = group.value;
-    calendarStore.calendar = initSchedules(
-      calendarStore.calendar,
-      schedules.value || [],
-    );
-  }
-});
+watch(
+  group.value,
+  () => {
+    if (group.value) {
+      calendarStore.group = group.value;
+      calendarStore.calendar = initSchedules(
+        calendarStore.calendar,
+        schedules.value || [],
+      );
+    }
+  },
+  { immediate: true },
+);
 </script>
