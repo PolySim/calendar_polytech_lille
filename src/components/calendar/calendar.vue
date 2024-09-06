@@ -14,7 +14,7 @@
         </p>
       </div>
     </aside>
-    <div class="flex flex-1 max-w-full h-fit overflow-x-auto block">
+    <div class="flex flex-1 max-w-full h-fit overflow-x-auto">
       <Day
         v-for="(day, i) in calendarStore.calendar"
         :key="`${day.date}-${calendarStore.group.key}`"

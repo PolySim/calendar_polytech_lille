@@ -24,12 +24,22 @@
 <script lang="ts" setup>
 import type { DayType } from "~/src/types/calendar.type";
 import { cn } from "~/src/utils/cn";
-import { generateHourInterval, isoToFrench } from "../../utils/calendar";
-
-const interval = ref(generateHourInterval());
+import {
+  generateHourInterval,
+  isoToFrench,
+  isToday,
+} from "../../utils/calendar";
 
 const props = defineProps<{
   day: DayType;
   index: number;
 }>();
+
+const interval = ref(generateHourInterval());
+
+watchEffect(() => {
+  if (isToday(props.day.date)) {
+    // console.log(props.day.schedule, "interval");
+  }
+});
 </script>

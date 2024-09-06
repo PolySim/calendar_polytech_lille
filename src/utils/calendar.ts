@@ -28,14 +28,12 @@ export const initSchedules = (
   }));
 
 export const getSchedules = async (promo: string) => {
-  return await useFetch(
-    `https://applications.polytech-lille.fr/sos/wsADE_events.php?serveurade=planning-2024&numprojet=0&promo=${promo}`,
-    {
-      mode: "no-cors",
-      lazy: true,
-      accept: "application/json, text/javascript, */*; q=0.01",
+  return useFetch("/api/schedules", {
+    params: {
+      promo: promo,
     },
-  );
+    lazy: true,
+  });
 };
 
 export const isoToFrench = (input: string) => {
@@ -65,4 +63,17 @@ export const generateHourInterval: () => {
       start: index * MINUTES_INTERVAL,
       end: index * MINUTES_INTERVAL + MINUTES_INTERVAL,
     }));
+};
+
+export const isToday = (date: string) => {
+  const year = parseInt(date.substring(0, 4), 10);
+  const month = parseInt(date.substring(4, 6), 10) - 1;
+  const day = parseInt(date.substring(6, 8), 10);
+  const today = new Date();
+  const dateToday = new Date(year, month, day);
+  return (
+    dateToday.getFullYear() === today.getFullYear() &&
+    dateToday.getMonth() === today.getMonth() &&
+    dateToday.getDate() === today.getDate()
+  );
 };
